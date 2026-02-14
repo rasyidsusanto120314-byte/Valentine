@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Sad Version</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #2c003e, #5a189a, #9d4edd);
+    font-family: 'Poppins', sans-serif;
+    color: white;
+}
+
+/* Card */
+.card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+    z-index: 2;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    background: white;
+    color: #5a189a;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #5a189a;
+    color: white;
+}
+
+.message {
+    margin-top: 20px;
+    font-size: 20px;
+    line-height: 1.7;
+    min-height: 120px;
+}
+
+/* Falling petals */
+.petal {
+    position: absolute;
+    top: -10px;
+    width: 18px;
+    height: 18px;
+    background: radial-gradient(circle at 30% 30%, #ff8fa3, #c9184a);
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Lagu Sad (https://www) -->
+<audio autoplay loop>
+    <source src="https://www.youtube.com/embed/FocFked1TbQ?autoplay=1&loop=1&playlist=FocFked1TbQ&controls=0".bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mp3">
+</audio>
+
+<div class="card">
+    <h2>Happy Valentine 💔</h2>
+    <button onclick="startTyping()">Baca Pesan 💌</button>
+    <div class="message" id="valentineMessage"></div>
+</div>
+
+<script>
+const text = `Selamat Valentine...
+
+tapi sayang kamu bukan punya aku 🙂
+
+aku hanya bisa mencintai dalam diam.
+
+bahagialah, meski bukan denganku 
+  
+  HAPPY VALENTINE 🌹`;
+
+let index = 0;
+let isTyping = false;
+
+function startTyping() {
+    if (isTyping) return;
+    isTyping = true;
+    typeEffect();
+}
+
+function typeEffect() {
+    if (index < text.length) {
+        document.getElementById("valentineMessage").innerHTML += 
+            text.charAt(index) === "\n" ? "<br>" : text.charAt(index);
+        index++;
+        setTimeout(typeEffect, 60);
+    }
+}
+
+function createPetal() {
+    const petal = document.createElement("div");
+    petal.classList.add("petal");
+    petal.style.left = Math.random() * 100 + "vw";
+    petal.style.animationDuration = (Math.random() * 4 + 3) + "s";
+    document.body.appendChild(petal);
+
+    setTimeout(() => {
+        petal.remove();
+    }, 7000);
+}
+
+setInterval(createPetal, 300);
+</script>
+
+</body>
+</html>
